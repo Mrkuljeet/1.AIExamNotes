@@ -26,9 +26,9 @@ app.post(
 
 
 app.use(cors({
-  origin: true,
+  origin: "https://one-aiexamnotesclient.onrender.com",
   credentials: true
-}))
+}));
 
 
 app.use(express.json())
