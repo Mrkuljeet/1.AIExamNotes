@@ -30,7 +30,7 @@ app.use(cors({
   credentials: true,
 }));
 
-
+import cookieParser from "cookie-parser";
 app.use(express.json())
 app.use(cookieParser())
 const PORT = process.env.PORT || 8000
