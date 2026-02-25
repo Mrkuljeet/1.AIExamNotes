@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { serverUrl } from '../App';
@@ -7,49 +6,47 @@ function Pricing() {
   const navigate = useNavigate()
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [paying, setPaying] = useState(false);
-const [payingAmount, setPayingAmount] = useState(null);
+  const [payingAmount, setPayingAmount] = useState(null);
 
-const handlePaying = async (amount) => {
-  try {
-    setPayingAmount(amount)
-    setPaying(true)
-    const result = await axios.post(serverUrl + "/api/credit/order" , {amount} , {withCredentials:true})
+  const handlePaying = async (amount) => {
+    try {
+      setPayingAmount(amount)
+      setPaying(true)
+      const result = await axios.post(serverUrl + "/api/credit/order", { amount }, { withCredentials: true })
 
-    if(result.data.url){
-      window.location.href = result.data.url
+      if (result.data.url) {
+        window.location.href = result.data.url
+      }
+
+      setPaying(false)
+
+
+
+    } catch (error) {
+      setPaying(false)
+      console.log(error)
     }
-
-        setPaying(false)
-
-
-
-  } catch (error) {
-        setPaying(false)
-        console.log(error)
   }
-}
   return (
     <div className='min-h-screen bg-gray-100 px-6 py-10 relative'>
 
-      <button onClick={()=>navigate("/")} className='flex items-center gap-2 text-gray-600 hover:text-black mb-6'>
+      <button onClick={() => navigate("/")} className='flex items-center gap-2 text-gray-600 hover:text-black mb-6 transition-colors'>
         ⬅️ Back
       </button>
 
-      <motion.div 
-      initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-10">
-          <h1 className="text-3xl font-bold">Buy Credits</h1>
+      <div
+        className="text-center mb-10 animate-fade-in-down">
+        <h1 className="text-3xl font-bold">Buy Credits</h1>
         <p className="text-gray-600 mt-2">
           Choose a plan that fits your study needs
         </p>
 
-      </motion.div>
+      </div>
 
       <div className='max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6'>
 
-        <PricingCard 
-        title="Starter"
+        <PricingCard
+          title="Starter"
           price="₹100"
           amount={100}
           credits="50 Credits"
@@ -65,10 +62,10 @@ const handlePaying = async (amount) => {
           onBuy={handlePaying}
           paying={paying}
           payingAmount={payingAmount}
-         />
+        />
 
 
-          <PricingCard
+        <PricingCard
           popular
           title="Popular"
           price="₹200"
@@ -109,7 +106,7 @@ const handlePaying = async (amount) => {
 
       </div>
 
-      
+
     </div>
   )
 }
@@ -128,43 +125,42 @@ function PricingCard({
   onBuy,
   paying,
   payingAmount
-}){
+}) {
 
-    const isSelected = selectedPrice === amount;
-const isPayingThisCard = paying && payingAmount === amount;
-return(
-  
-  <motion.div  
-  onClick={()=>setSelectedPrice(amount)}
-  whileHover={{ y: -4 }}
+  const isSelected = selectedPrice === amount;
+  const isPayingThisCard = paying && payingAmount === amount;
+  return (
+
+    <div
+      onClick={() => setSelectedPrice(amount)}
       className={`
         relative cursor-pointer
         rounded-xl p-6 bg-white
-        border transition
+        border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg
         ${isSelected
-          ? "border-black"
+          ? "border-black shadow-md ring-1 ring-black"
           : popular
-          ? "border-indigo-500"
-          : "border-gray-200"}
+            ? "border-indigo-500 shadow-md"
+            : "border-gray-200"}
       `}>
-       {popular && !isSelected && <span className='absolute top-4 right-4 text-xs px-2 py-1 rounded bg-indigo-600 text-white'>Popular</span>}
+      {popular && !isSelected && <span className='absolute top-4 right-4 text-xs px-2 py-1 rounded bg-indigo-600 text-white'>Popular</span>}
 
       {isSelected && <span className='absolute top-4 right-4 text-xs px-2 py-1 rounded bg-black text-white'>
-        Seleted
-       </span>}
+        Selected
+      </span>}
 
 
-       <h2 className='text-xl font-semibold'>{title}</h2>
-       <p className='text-sm text-gray-500 mt-1'>{description}</p>
+      <h2 className='text-xl font-semibold'>{title}</h2>
+      <p className='text-sm text-gray-500 mt-1'>{description}</p>
 
-       <div className='mt-4'>
+      <div className='mt-4'>
         <p className="text-3xl font-bold">{price}</p>
         <p className="text-sm text-indigo-600">{credits}</p>
-       </div>
-        <button 
+      </div>
+      <button
         disabled={isPayingThisCard}
 
-        onClick={(e)=>{
+        onClick={(e) => {
           e.stopPropagation();
           onBuy(amount)
         }}
@@ -173,23 +169,23 @@ return(
           ${isPayingThisCard
             ? "bg-gray-300 cursor-not-allowed"
             : isSelected
-            ? "bg-black text-white"
-            : "bg-indigo-600 text-white hover:bg-indigo-700"}
+              ? "bg-black text-white hover:bg-gray-800"
+              : "bg-indigo-600 text-white hover:bg-indigo-700"}
         `}>
-{isPayingThisCard ? "Redirecting..." : "Buy Now"}
-        </button>
+        {isPayingThisCard ? "Redirecting..." : "Buy Now"}
+      </button>
 
-        <ul className='mt-5 space-y-2 text-sm text-gray-600'>
-          {features.map((f, i) => (
+      <ul className='mt-5 space-y-2 text-sm text-gray-600'>
+        {features.map((f, i) => (
           <li key={i} className="flex gap-2">
             <span className="text-green-600">✓</span>
             {f}
           </li>
         ))}
-        </ul>
+      </ul>
 
-  </motion.div>
-)
+    </div>
+  )
 }
 
 export default Pricing

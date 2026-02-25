@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
 import { serverUrl } from "../App";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -54,11 +53,8 @@ function History() {
     <div className="min-h-screen bg-gray-100 p-6">
 
       {/* HEADER */}
-      <motion.header
-        initial={{ opacity: 0, y: -15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-6 bg-black text-white p-6 rounded-xl flex justify-between items-center"
+      <header
+        className="mb-6 bg-black text-white p-6 rounded-xl flex justify-between items-center animate-fade-in-down"
       >
         <div onClick={() => navigate("/")} className="cursor-pointer">
           <h1 className="text-2xl font-bold">ExamNotes AI</h1>
@@ -79,65 +75,56 @@ function History() {
 
           <button
             onClick={() => navigate("/pricing")}
-            className="bg-white text-black px-4 py-2 rounded-full"
+            className="bg-white text-black px-4 py-2 rounded-full cursor-pointer hover:bg-gray-200 transition-colors"
           >
             💠 {credits}
           </button>
         </div>
-      </motion.header>
+      </header>
 
       {/* MAIN LAYOUT */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
         {/* SIDEBAR */}
-        <AnimatePresence>
-          {isSidebarOpen && (
-            <motion.div
-              initial={{ x: -320 }}
-              animate={{ x: 0 }}
-              exit={{ x: -320 }}
-              transition={{ type: "spring", stiffness: 260, damping: 30 }}
-              className="bg-black text-white p-5 rounded-xl col-span-1"
+        {isSidebarOpen && (
+          <div
+            className="bg-black text-white p-5 rounded-xl col-span-1 animate-fade-in-left"
+          >
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="mb-4 hover:text-gray-300 transition-colors cursor-pointer"
             >
-              <button
-                onClick={() => setIsSidebarOpen(false)}
-                className="mb-4"
-              >
-                ⬅ Back
-              </button>
+              ⬅ Back
+            </button>
 
-              <h2 className="mb-4 text-lg font-bold">📚 Your Notes</h2>
+            <h2 className="mb-4 text-lg font-bold">📚 Your Notes</h2>
 
-              {topics.length === 0 && (
-                <p className="text-gray-400 text-sm">
-                  No notes created yet
-                </p>
-              )}
+            {topics.length === 0 && (
+              <p className="text-gray-400 text-sm">
+                No notes created yet
+              </p>
+            )}
 
-              <ul className="space-y-3">
-                {topics.map((t) => (
-                  <li
-                    key={t._id}
-                    onClick={() => openNotes(t._id)}
-                    className={`cursor-pointer p-3 rounded-lg border ${
-                      activeNoteId === t._id
-                        ? "bg-indigo-500"
-                        : "bg-gray-800"
+            <ul className="space-y-3">
+              {topics.map((t) => (
+                <li
+                  key={t._id}
+                  onClick={() => openNotes(t._id)}
+                  className={`cursor-pointer p-3 rounded-lg border transition-colors ${activeNoteId === t._id
+                      ? "bg-indigo-500"
+                      : "bg-gray-800 hover:bg-gray-700"
                     }`}
-                  >
-                    <p className="font-semibold">{t.topic}</p>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                >
+                  <p className="font-semibold">{t.topic}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* CONTENT */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="col-span-3 bg-white p-6 rounded-xl shadow"
+        <div
+          className="col-span-3 bg-white p-6 rounded-xl shadow animate-fade-in"
         >
           {loading && (
             <p className="text-center text-gray-500">
@@ -154,7 +141,7 @@ function History() {
           {!loading && selectedNote && (
             <FinalResult result={selectedNote} />
           )}
-        </motion.div>
+        </div>
       </div>
 
     </div>

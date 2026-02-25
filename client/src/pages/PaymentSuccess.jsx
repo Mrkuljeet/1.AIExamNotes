@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { motion } from "framer-motion"
 import { FiCheckCircle } from "react-icons/fi";
 import { getCurrentUser } from '../services/api';
 import { useDispatch } from 'react-redux';
@@ -22,37 +21,25 @@ function PaymentSuccess() {
 
     }, [dispatch, navigate])
     return (
-        <div className='min-h-screen flex flex-col items-center justify-center p-4 gap-4'>
-            <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 360 }}
-                transition={{
-                    duration: 0.8,
-                    ease: "easeOut"
-                }}
-                className="text-green-500 text-6xl">
+        <div className='min-h-screen flex flex-col items-center justify-center p-4 gap-4 bg-green-50/50'>
+            <div
+                className="text-green-500 text-6xl animate-bounce-short">
                 <FiCheckCircle />
 
-            </motion.div>
+            </div>
 
-            <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-2xl font-bold text-green-600">
+            <h1
+                className="text-2xl font-bold text-green-600 animate-fade-in-up">
                 Payment Successful! Credits Added
 
-            </motion.h1>
+            </h1>
 
-            <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="text-gray-500 text-sm">
+            <p
+                className="text-gray-500 text-sm animate-fade-in">
 
                 Redirecting to home...
 
-            </motion.p>
+            </p>
 
         </div>
     )
