@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { motion } from "framer-motion"
 import { generateNotes } from '../services/api';
 import { useDispatch } from 'react-redux';
 import { updateCredits } from '../redux/userSlice';
+
 function TopicForm({ setResult, setLoading, loading, setError }) {
   const [topic, setTopic] = useState("");
   const [classLevel, setClassLevel] = useState("");
@@ -92,18 +92,17 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+    <div
       className="
         rounded-2xl
-        bg-gradient-to-br  from-black/90 via-black/80 to-black/90
+        bg-gradient-to-br from-black/90 via-black/80 to-black/90
         backdrop-blur-2xl
         border border-white/10
         shadow-[0_25px_60px_rgba(0,0,0,0.75)]
         p-8
         space-y-6
         text-white
+        animate-fade-in-up
       ">
 
       <input type="text" className=' w-full p-3 rounded-xl
@@ -150,39 +149,33 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         />
       </div>
 
-      <motion.button
+      <button
         onClick={handleSubmit}
-        whileHover={!loading ? { scale: 1.02 } : {}}
-        whileTap={!loading ? { scale: 0.95 } : {}}
         disabled={loading}
         className={`
     w-full mt-4
     py-3 rounded-xl
     font-semibold
     flex items-center justify-center gap-3
-    transition
+    transition duration-300 transform
     ${loading
             ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-            : "bg-gradient-to-br from-white to-gray-200 text-black shadow-[0_15px_35px_rgba(0,0,0,0.4)]"
+            : "bg-gradient-to-br from-white to-gray-200 text-black shadow-[0_15px_35px_rgba(0,0,0,0.4)] hover:scale-102 active:scale-95"
           }
   `}>
         {loading ? "Generating Notes..." : "Generate Notes"}
 
-      </motion.button>
+      </button>
 
 
       {loading &&
         <div className='mt-4 space-y-2'>
 
           <div className='w-full h-2 rounded-full bg-white/10 overflow-hidden'>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ ease: "easeOut", duration: 0.6 }}
-              className='h-full bg-gradient-to-r from-green-400 via-emerald-400 to-green-500'>
-
-            </motion.div>
-
+            <div
+              className='h-full bg-gradient-to-r from-green-400 via-emerald-400 to-green-500 transition-all duration-500 ease-out'
+              style={{ width: `${progress}%` }}>
+            </div>
           </div>
 
           <div className='flex justify-between text-xs text-gray-300'>
@@ -200,7 +193,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 
 
 
-    </motion.div>
+    </div>
   )
 }
 
@@ -208,34 +201,22 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 function Toggle({ label, checked, onChange }) {
   return (
     <div className='flex items-center gap-4 cursor-pointer select-none' onClick={onChange}>
-      <motion.div
-        animate={{
-          backgroundColor: checked
-            ? "rgba(34,197,94,0.35)"   // green when ON
-            : "rgba(255,255,255,0.15)" // gray when OFF
-        }}
-        transition={{ duration: 0.25 }}
-        className='relative w-12 h-6 rounded-full
+      <div
+        className={`relative w-12 h-6 rounded-full
           border border-white/20
-          backdrop-blur-lg'
-
+          backdrop-blur-lg transition-colors duration-300
+          ${checked ? "bg-green-500/35" : "bg-white/15"}`}
       >
-        <motion.div
-          layout
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          className=' absolute top-0.5
+        <div
+          className={`absolute top-0.5
             h-5 w-5 rounded-full
             bg-white
-            shadow-[0_5px_15px_rgba(0,0,0,0.5)]'
-          style={{
-            left: checked ? "1.6rem" : "0.25rem",
-          }}
-
+            shadow-[0_5px_15px_rgba(0,0,0,0.5)] transition-all duration-300 ease-in-out
+            ${checked ? "left-[1.6rem]" : "left-1"}`}
         >
 
-
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       <span className={`text-sm transition-colors ${checked ? "text-green-300" : "text-gray-300"
         }`}>{label}</span>

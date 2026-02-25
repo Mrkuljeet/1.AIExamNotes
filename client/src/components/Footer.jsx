@@ -1,11 +1,11 @@
 import React from 'react'
-import { motion } from "framer-motion"
 import logo from "../assets/logo.png"
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { serverUrl } from '../App'
 import { setUserData } from '../redux/userSlice'
+
 function Footer() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -21,22 +21,17 @@ function Footer() {
     }
   }
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+    <div
       className='z-10 mx-6 mb-6 mt-24
   rounded-2xl
   bg-gradient-to-br from-black/90 via-black/80 to-black/90
   backdrop-blur-2xl
   border border-white/10
   px-8 py-8
-  shadow-[0_25px_60px_rgba(0,0,0,0.7)]'>
+  shadow-[0_25px_60px_rgba(0,0,0,0.7)] animate-fade-in-up'>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
-        <motion.div
-          whileHover={{ rotateX: 6, rotateY: -6 }}
-          className="flex flex-col gap-4 transform-gpu"
+        <div
+          className="flex flex-col gap-4 transform-gpu hover:scale-[1.02] transition-transform duration-300 ease-out"
           style={{ transformStyle: "preserve-3d" }}>
           <div className="flex items-center gap-3 cursor-pointer"
             style={{ transform: "translateZ(20px)" }}>
@@ -54,22 +49,22 @@ function Footer() {
           <p className="text-sm text-gray-300 max-w-sm">ExamNotes AI helps students generate exam-focused notes,
             revision material, diagrams, and printable PDFs using AI.</p>
 
-        </motion.div>
+        </div>
 
         <div className='text-center'>
           <h1 className='text-sm font-semibold text-white mb-4'>Quick Links</h1>
           <ul className='space-y-2 text-sm'>
-            <li onClick={() => navigate("/notes")} className='text-gray-300 hover:text-white transition-colors'>
+            <li onClick={() => navigate("/notes")} className='text-gray-300 cursor-pointer hover:text-white transition-colors'>
               Notes
             </li>
-            <li onClick={() => navigate("/history")} className='text-gray-300 hover:text-white transition-colors'>History</li>
-            <li onClick={() => navigate("/pricing")} className='text-gray-300 hover:text-white transition-colors'>Add Credits</li>
+            <li onClick={() => navigate("/history")} className='text-gray-300 cursor-pointer hover:text-white transition-colors'>History</li>
+            <li onClick={() => navigate("/pricing")} className='text-gray-300 cursor-pointer hover:text-white transition-colors'>Add Credits</li>
           </ul>
         </div>
         <div className='text-center'>
           <h1 className='text-sm font-semibold text-white mb-4'>Support & Account</h1>
           <ul className='space-y-2 text-sm'>
-            <li onClick={handleSignOut} className='text-red-400 hover:text-red-300 transition-colors'>SignOut</li>
+            <li onClick={handleSignOut} className='text-red-400 cursor-pointer hover:text-red-300 transition-colors'>SignOut</li>
             <li className='text-gray-300 hover:text-white transition-colors'>support@examnotes.com</li>
           </ul>
         </div>
@@ -82,7 +77,7 @@ function Footer() {
 
 
 
-    </motion.div>
+    </div>
   )
 }
 
