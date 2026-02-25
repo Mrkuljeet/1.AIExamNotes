@@ -24,10 +24,16 @@ app.post(
 
 
 
+<<<<<<< HEAD
 
 app.use(cors({
   origin: process.env.CLIENT_URL,
   credentials: true
+=======
+app.use(cors({
+  origin: "https://one-aiexamnotesclient.onrender.com",
+  credentials: true,
+>>>>>>> 8184e4e (Removed wrong motion dependency)
 }));
 
 

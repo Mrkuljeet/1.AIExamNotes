@@ -3,13 +3,8 @@ import { getToken } from "../utils/token.js"
 
 export const googleAuth = async (req, res) => {
   try {
-    console.log("BODY:", req.body)
 
     const { name, email } = req.body
-
-    if (!name || !email) {
-      return res.status(400).json({ message: "Name or Email missing" })
-    }
 
     let user = await UserModel.findOne({ email })
 
@@ -17,20 +12,19 @@ export const googleAuth = async (req, res) => {
       user = await UserModel.create({ name, email })
     }
 
-    const token = await getToken(user._id)
+    let token = await getToken(user._id)
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
-      sameSite: "none",
-      path: "/"
+      sameSite: "none",   // ✅ FIXED
+      maxAge: 7 * 24 * 60 * 60 * 1000
     })
 
     return res.status(200).json(user)
 
   } catch (error) {
-    console.log("GOOGLE AUTH ERROR:", error)
-    return res.status(500).json({ message: error.message })
+    return res.status(500).json({ message: `googleSignup Error ${error}` })
   }
 }
 
