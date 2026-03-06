@@ -79,7 +79,7 @@ It helps students create high-quality revision notes, diagrams, charts, and down
 
 **Kuljeet Choure**  
 B.Tech CSE Student  
-Passionate about Full-Stack Development & AI 
+Passionate about Full-Stack Development & AIML and Cyber Security
 
 ---
 
@@ -100,8 +100,6 @@ This project demonstrates:
 - Authentication systems
 - Deployment handling
 - Real-world debugging capability
-
----
 
 ## 📌 License
 
