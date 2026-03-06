@@ -33,7 +33,6 @@ It helps students create high-quality revision notes, diagrams, charts, and down
 3. Backend sends structured prompt to Gemini API
 4. AI generates high-quality markdown notes
 5. Notes are saved in MongoDB
-6. User can revisit history or download as PDF
 
 ---
 
@@ -98,7 +97,6 @@ This project demonstrates:
 - Full-stack development skills
 - API integration
 - Authentication systems
-- Deployment handling
 - Real-world debugging capability
 
 ## 📌 License
