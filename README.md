@@ -15,8 +15,7 @@ It helps students create high-quality revision notes, diagrams, charts, and down
 ✅ Comparison Tables & Charts  
 ✅ PDF Download Support  
 ✅ Credit-Based System  
-✅ Responsive & Modern UI  
-✅ Secure Backend (JWT + Cookies)  
+✅ Responsive & Modern UI   
 ✅ MongoDB Database Integration  
 
 ---
