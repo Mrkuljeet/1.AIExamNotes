@@ -97,8 +97,3 @@ This project demonstrates:
 - API integration
 - Authentication systems
 - Real-world debugging capability
-
-## 📌 License
-
-This project is for educational and portfolio purposes.
-
